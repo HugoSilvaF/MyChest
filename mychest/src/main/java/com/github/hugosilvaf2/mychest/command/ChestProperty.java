@@ -1,0 +1,105 @@
+package com.github.hugosilvaf2.mychest.command;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+import com.github.hugosilvaf2.mychest.controller.ChestController;
+import com.github.hugosilvaf2.mychest.controller.UserController;
+import com.github.hugosilvaf2.mychest.entity.User;
+import com.github.hugosilvaf2.mychest.entity.chest.Chest;
+import com.github.hugosilvaf2.mychest.message.MessageHandler;
+import com.github.hugosilvaf2.mychest.message.Replaces;
+import com.github.hugosilvaf2.mychest.service.SessionService;
+import com.github.hugosilvaf2.mychest.session.Session;
+import com.github.hugosilvaf2.mychest.utils.Utils;
+
+import co.aikar.commands.BaseCommand;
+import co.aikar.commands.annotation.CommandAlias;
+import co.aikar.commands.annotation.Default;
+import co.aikar.commands.annotation.Dependency;
+import co.aikar.commands.annotation.Description;
+
+@CommandAlias("%chestname")
+@Description("Change the chest name")
+public class ChestProperty extends BaseCommand {
+
+    @Dependency
+    private ChestController chestController;
+
+    @Dependency
+    private UserController userController;
+
+    @Dependency
+    private SessionService sessionService;
+
+    @Default
+    public void onBauName(Player player, String name, String newName) {
+        setChestProperty(0, player, name, newName);
+    }
+
+    @CommandAlias("%chesttitle")
+    @Description("Change the chest title")
+    public void onBauTitulo(Player player, String name, String title) {
+        setChestProperty(1, player, name, title);
+    }
+
+    private void setChestProperty(int property, Player player, String name, String newValue) {
+        Optional<User> optional = userController.getUserService().getUserByID(player.getUniqueId().toString());
+        if (optional.isPresent()) {
+            User user = optional.get();
+            if (!user.getChestsID().stream().filter(c -> {
+                Optional<Chest> optionalC = chestController.getChestservice().getChestByID(String.valueOf(c));
+                if (optionalC.isPresent()) {
+                    Chest chest = optionalC.get();
+                    if (chest.getName().equals(name)) {
+                        String oldName = chest.getName();
+                        String oldTitle = chest.getTitle();
+                        if (property == 0) {
+                            chestController.getChestservice().updateChest(chest.setName(newValue));
+                            MessageHandler.TITLE_CHANGED_SUCCESSFULLY.send(player,
+                                    new Replaces().add("oldname", oldName).add("newname", newValue));
+                                    return true;
+                        }
+                        if (property == 1) {
+                            // FECHAR TODOS INVENTÁRIOS, CRIAR UM COM O NOVO TITULO E ABRIR-LOS NOVAMENTE
+                            // PARA OS JOGADORES
+                            chestController.getChestservice().updateChest(chest.setTitle(Utils.fixTitle(newValue)));
+                            MessageHandler.TITLE_CHANGED_SUCCESSFULLY.send(player,
+                                    new Replaces().add("oldtitle", oldTitle).add("newtitle", Utils.fixTitle(newValue)));
+                            Optional<Session> optionalS = sessionService.getSessionByID(chest.getID());
+                            if (optionalS.isPresent()) {
+                                List<Player> viewers = new ArrayList<>(optionalS.get().getViewers());
+                                if (optionalS.isPresent()) {
+                                    optionalS.get().getViewers().forEach(b -> {
+                                        b.closeInventory();
+                                    });
+                                    sessionService.removeSessionByID(chest.getID());
+                                    viewers.forEach(b -> {
+                                        Bukkit.getScheduler().runTaskLater(
+                                                Bukkit.getPluginManager().getPlugin("mychest"),
+                                                new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        chestController.openChestToPlayer(b,
+                                                                String.valueOf(chest.getID()));
+                                                    }
+                                                }, 1L);
+                                    });
+
+                                }
+                            }
+                        }
+                        return true;
+                    }
+                }
+                return false;
+            }).findFirst().isPresent()) {
+                MessageHandler.NOT_FOUND_CHEST.send(player, new Replaces().add("oldtitle", name));
+            }
+        }
+    }
+
+}

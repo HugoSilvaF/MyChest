@@ -1,0 +1,35 @@
+you_dont_have_any_chest:
+- '&CVoce nao tem nenhum bau!'
+# $target the playername of target
+user_dont_have_any_chest:
+- '&cEste usuario nao tem nenhum bau'
+# $id its the id of chest
+# $name its the name of chest
+# $title its  the title of chest
+# $player its the name of player
+user_chests:
+- ''
+- '&bMyChest&7 Baus do jogador &b$player:'
+- '&bID&7 | NOME | TITULO'
+- ''
+user_chests_info:
+- '&7$id&r $name $title'
+your_chests:
+- ''
+- '&bMyChest&7 Seus baus:'
+- '&bID&7 | NOME | TITULO'
+- ''
+# $id its the id of chest
+# $name its the name of chest
+# $title its  the title of chest
+# $player its the name of player
+your_chests_info:
+- '&7$id&r $name $title'
+opening_chest:
+- 'Abrindo o bau $id $name'
+not_found_chest:
+- 'Bau nao encontrado'
+title_changed_successfully:
+- '&bTitulo alterado com sucesso de &7$oldtitle&b para &7$newtitle'
+not_permission:
+- '&cVocê nao tem permissao para usar este comando'

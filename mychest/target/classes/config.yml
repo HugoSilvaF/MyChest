@@ -1,0 +1,39 @@
+# MYSQL is an database where will are save the data of the chests
+# The plugin doesnt work without MYSQL
+mysql:
+  database: "minecraft"
+  host: localhost
+  port: 3306
+  username: "root"
+  password: "1234"
+# Save the chest on MYSQL every click on the chest
+# This make more security and more lag maybe
+save_every_click: false
+commands_alias:
+  # this command open the chest and can create a new chest if dont exists one
+  chest: [bau, b, chest, c]
+   # this command show the chests of player
+  chests: [baus, bs, chests, cs]
+  # this command can open another chests of any player
+  chestadmin: [bauadmin, ba, chestadmin, ca]
+  # this command can change the name fo player chest
+  chestname: [baunome, bnome, bn, chestname, cname, cn]
+  # this command can change title of player chest
+  chesttitle: [bautitulo, btitulo, bt, chesttitle, ctitle, ct]
+permissions:
+  # The player have mychest.vip permission, he can have 10 chests
+  # The size of inventorys is in the parentheses
+  # The player have mychest.vip permission, he can have the BIGGEST chest
+  # SMALLEST(9),
+  # SMALL(18),
+  # NORMAL(27),
+  # MEDIUM(36),
+  # BIG(45),
+  # BIGGEST(54);
+  groups:
+    default:
+      size: NORMAL
+      chests: 2
+    vip:
+      size: BIGGEST
+      chests: 10

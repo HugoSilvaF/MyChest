@@ -1,0 +1,4 @@
+name: mychest
+version: "1.0"
+author: Hugo Silva
+main: com.github.hugosilvaf2.mychest.Main
