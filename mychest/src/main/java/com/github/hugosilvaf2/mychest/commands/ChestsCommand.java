@@ -1,4 +1,4 @@
-package com.github.hugosilvaf2.mychest.command;
+package com.github.hugosilvaf2.mychest.commands;
 
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
@@ -21,7 +21,7 @@ import co.aikar.commands.annotation.Description;
 
 @CommandAlias("%chests")
 @Description("List all your chests or of an especific player")
-public class Chests extends BaseCommand{
+public class ChestsCommand extends BaseCommand{
 
 
   // criar os comandos de alterar o titulo

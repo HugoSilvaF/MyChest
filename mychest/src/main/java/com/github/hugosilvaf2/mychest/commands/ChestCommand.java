@@ -1,4 +1,4 @@
-package com.github.hugosilvaf2.mychest.command;
+package com.github.hugosilvaf2.mychest.commands;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.annotation.CommandAlias;

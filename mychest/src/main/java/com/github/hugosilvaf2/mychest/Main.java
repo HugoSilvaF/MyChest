@@ -7,11 +7,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
-
-import com.github.hugosilvaf2.mychest.command.ChestAdmin;
-import com.github.hugosilvaf2.mychest.command.ChestCommand;
-import com.github.hugosilvaf2.mychest.command.ChestProperty;
-import com.github.hugosilvaf2.mychest.command.Chests;
+import com.github.hugosilvaf2.mychest.commands.ChestAdminCommand;
+import com.github.hugosilvaf2.mychest.commands.ChestEditCommand;
+import com.github.hugosilvaf2.mychest.commands.ChestsCommand;
 import com.github.hugosilvaf2.mychest.controller.ChestController;
 import com.github.hugosilvaf2.mychest.controller.UserController;
 import com.github.hugosilvaf2.mychest.entity.chest.Group;
@@ -108,10 +106,10 @@ public class Main extends JavaPlugin {
       this.getLogger().info("Dependencies registered successfully");
 
       getLogger().info("Registering Commands in ACFCommand...");
-      this.commandManager.registerCommand(new Chests());
-      this.commandManager.registerCommand(new ChestAdmin());
-      this.commandManager.registerCommand(new ChestProperty());
-      this.commandManager.registerCommand(new ChestCommand());
+      this.commandManager.registerCommand(new ChestsCommand());
+      this.commandManager.registerCommand(new ChestAdminCommand());
+      this.commandManager.registerCommand(new ChestEditCommand());
+      this.commandManager.registerCommand(new ChestsCommand());
       getLogger().info("Command registered succesfully");
 
       initMessageConfig();

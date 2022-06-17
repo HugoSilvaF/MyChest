@@ -1,4 +1,4 @@
-package com.github.hugosilvaf2.mychest.command;
+package com.github.hugosilvaf2.mychest.commands;
 
 import java.util.Optional;
 
@@ -17,7 +17,7 @@ import co.aikar.commands.annotation.Description;
 
 @CommandAlias("%chestadmin")
 @Description("Open any chest of any player")
-public class ChestAdmin extends BaseCommand{
+public class ChestAdminCommand extends BaseCommand{
 
     
   @Dependency

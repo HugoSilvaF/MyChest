@@ -1,4 +1,4 @@
-package com.github.hugosilvaf2.mychest.command;
+package com.github.hugosilvaf2.mychest.commands;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +24,7 @@ import co.aikar.commands.annotation.Description;
 
 @CommandAlias("%chestname")
 @Description("Change the chest name")
-public class ChestProperty extends BaseCommand {
+public class ChestEditCommand extends BaseCommand {
 
     @Dependency
     private ChestController chestController;
