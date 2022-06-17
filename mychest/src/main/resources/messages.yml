@@ -10,7 +10,7 @@ user_dont_have_any_chest:
 user_chests:
 - ''
 - '&bMyChest&7 Baus do jogador &b$player:'
-- '&bID&7 | NOME | TITULO'
+- '&bID&7 | &bNOME &7| &bTITULO'
 - ''
 user_chests_info:
 - '&7$id&r $name $title'
@@ -24,11 +24,11 @@ your_chests:
 # $title its  the title of chest
 # $player its the name of player
 your_chests_info:
-- '&7$id&r $name $title'
+- '&7$id&r $name &7$title'
 opening_chest:
-- 'Abrindo o bau $id $name'
+- '&7Abrindo o bau $id $name'
 not_found_chest:
-- 'Bau nao encontrado'
+- '&cBau nao encontrado'
 title_changed_successfully:
 - '&bTitulo alterado com sucesso de &7$oldtitle&b para &7$newtitle'
 not_permission:
