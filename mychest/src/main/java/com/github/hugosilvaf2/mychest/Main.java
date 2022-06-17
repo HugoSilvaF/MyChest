@@ -4,9 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 import com.github.hugosilvaf2.mychest.commands.ChestAdminCommand;
 import com.github.hugosilvaf2.mychest.commands.ChestEditCommand;
 import com.github.hugosilvaf2.mychest.commands.ChestsCommand;
@@ -18,14 +16,12 @@ import com.github.hugosilvaf2.mychest.service.ChestService;
 import com.github.hugosilvaf2.mychest.service.SessionService;
 import com.github.hugosilvaf2.mychest.service.UserService;
 import com.github.hugosilvaf2.mychest.utils.Utils;
-
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
-
 import co.aikar.commands.BukkitCommandManager;
 import net.milkbowl.vault.permission.Permission;
 import pro.husk.mysql.MySQL;
@@ -33,15 +29,6 @@ import pro.husk.mysql.MySQL;
 public class Main extends JavaPlugin {
 
    public static void main(String[] args) {
-      String a = "[a, b, c, d]";
-
-      System.out.println("String: " + a);
-
-      String[] arr =  a.replace("[", "").replace("]", "").split(", ");
-
-      System.out.println("array: " + Arrays.toString(arr));
-
-      Stream.of(arr).forEach(c -> System.out.println("array val >> " + c));
 
    }
 
