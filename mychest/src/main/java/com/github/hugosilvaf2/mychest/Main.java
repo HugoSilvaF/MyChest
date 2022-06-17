@@ -130,6 +130,18 @@ public class Main extends JavaPlugin {
       } catch (SQLException var2) {
          var2.printStackTrace();
       }
+
+      // remove sessions and close all chest inventories that was open
+      getSessionService().gSessions().forEach(c -> {
+         c.getViewers().forEach(d -> {
+         if(d != null) {
+            if(d.isOnline()) {
+               d.closeInventory();
+            }
+            getSessionService().removeSessionByID(c.getChest().getID());
+         }
+         });
+      });
    }
 
    public static FileConfiguration getDefaultConfig() {
