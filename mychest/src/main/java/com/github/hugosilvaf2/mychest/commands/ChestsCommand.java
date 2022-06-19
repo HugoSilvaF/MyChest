@@ -4,6 +4,7 @@ import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
 
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import com.github.hugosilvaf2.mychest.controller.ChestController;
@@ -36,10 +37,10 @@ public class ChestsCommand extends BaseCommand{
   private  UserController userController;
 
   @Default
-  public void onChestsCommand(Player player, @co.aikar.commands.annotation.Optional String username) {
+  public void onChestsCommand(Player player, @co.aikar.commands.annotation.Optional OfflinePlayer offlinePlayer) {
     AtomicReference<Chest> chest = new AtomicReference<>();
     Optional<User> user = userController.getUserService().getUserByID(player.getUniqueId().toString());
-    if (username == null) {
+    if (offlinePlayer == null) {
       if (user.isPresent()) {
         MessageHandler.YOUR_CHESTS.send(player);
         user.get().getChestsID().forEach(c -> {
@@ -51,7 +52,7 @@ public class ChestsCommand extends BaseCommand{
         MessageHandler.YOU_DONT_HAVE_ANY_CHEST.send(player);
       }
     } else {
-      user = userController.getUserService().getUserByID(Bukkit.getOfflinePlayer(username).getUniqueId().toString());
+      user = userController.getUserService().getUserByID(offlinePlayer.getUniqueId().toString());
       if (user.isPresent()) {
         MessageHandler.USER_CHESTS.send(player);
         user.get().getChestsID().forEach(c -> {
@@ -63,7 +64,7 @@ public class ChestsCommand extends BaseCommand{
           }
         });
       } else {
-        MessageHandler.USER_DONT_HAVE_ANY_CHEST.send(player, new Replaces().add("target", username));
+        MessageHandler.USER_DONT_HAVE_ANY_CHEST.send(player, new Replaces().add("target", offlinePlayer.getName()));
       }
     }
   }
