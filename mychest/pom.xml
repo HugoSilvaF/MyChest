@@ -27,11 +27,6 @@
 		    <id>jitpack.io</id>
 		    <url>https://jitpack.io</url>
 		</repository>
-
-        <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-        </repository>
 	</repositories>
 
     <!-- Dependencies -->
@@ -48,11 +43,6 @@
             <artifactId>mysql</artifactId>
             <version>1.4.2</version>
         </dependency>
-	<dependency>
-	    <groupId>com.github.jikoo.openinv</groupId>
-	    <artifactId>openinvapi</artifactId>
-	    <version>4.1.10</version>
-	</dependency>
         
     <dependency>
         <groupId>co.aikar</groupId>
