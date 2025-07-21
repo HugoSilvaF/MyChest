@@ -8,7 +8,7 @@ mysql:
   password: "1234"
 # Save the chest on MYSQL every click on the chest
 # This make more security and more lag maybe
-save_every_click: false
+save_chest_every_click: false
 commands_alias:
   # this command open the chest and can create a new chest if dont exists one
   chest: [bau, b, chest, c]

@@ -25,6 +25,11 @@ public class ChestAdminCommand extends BaseCommand{
 
     @Default
     public void onAdminCommand(Player player, String id) {
+      if (!player.hasPermission("mychest.admin")) {
+        MessageHandler.NOT_PERMISSION.send(player);
+        return;
+      }
+      
       Optional<Chest> optional = chestController.getChestservice().getChestByID(id);
       if (optional.isPresent()) {
         Chest chest = chestController.getChestservice().getChestByID(id).get();

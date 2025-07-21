@@ -47,6 +47,11 @@ public class ChestEditCommand extends BaseCommand {
     }
 
     private void setChestProperty(int property, Player player, String name, String newValue) {
+        if (!player.hasPermission("mychest.use")) {
+            MessageHandler.NOT_PERMISSION.send(player);
+            return;
+        }
+        
         Optional<User> optional = userController.getUserService().getUserByID(player.getUniqueId().toString());
         if (optional.isPresent()) {
             User user = optional.get();
@@ -59,9 +64,9 @@ public class ChestEditCommand extends BaseCommand {
                         String oldTitle = chest.getTitle();
                         if (property == 0) {
                             chestController.getChestservice().updateChest(chest.setName(newValue));
-                            MessageHandler.TITLE_CHANGED_SUCCESSFULLY.send(player,
+                            MessageHandler.NAME_CHANGED_SUCCESSFULLY.send(player,
                                     new Replaces().add("oldname", oldName).add("newname", newValue));
-                                    return true;
+                            return true;
                         }
                         if (property == 1) {
                             // FECHAR TODOS INVENTÁRIOS, CRIAR UM COM O NOVO TITULO E ABRIR-LOS NOVAMENTE
@@ -97,7 +102,7 @@ public class ChestEditCommand extends BaseCommand {
                 }
                 return false;
             }).findFirst().isPresent()) {
-                MessageHandler.NOT_FOUND_CHEST.send(player, new Replaces().add("oldtitle", name));
+                MessageHandler.NOT_FOUND_CHEST.send(player, new Replaces().add("name", name));
             }
         }
     }

@@ -96,7 +96,7 @@ public class Main extends JavaPlugin {
       this.commandManager.registerCommand(new ChestsCommand());
       this.commandManager.registerCommand(new ChestAdminCommand());
       this.commandManager.registerCommand(new ChestEditCommand());
-      this.commandManager.registerCommand(new ChestsCommand());
+      this.commandManager.registerCommand(new ChestCommand());
       getLogger().info("Command registered succesfully");
 
       initMessageConfig();

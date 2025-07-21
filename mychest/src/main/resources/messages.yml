@@ -28,8 +28,10 @@ your_chests_info:
 opening_chest:
 - '&7Abrindo o bau $id $name'
 not_found_chest:
-- '&cBau nao encontrado'
+- '&cBau "$name" nao encontrado'
 title_changed_successfully:
 - '&bTitulo alterado com sucesso de &7$oldtitle&b para &7$newtitle'
+name_changed_successfully:
+- '&bNome alterado com sucesso de &7$oldname&b para &7$newname'
 not_permission:
 - '&cVocê nao tem permissao para usar este comando'

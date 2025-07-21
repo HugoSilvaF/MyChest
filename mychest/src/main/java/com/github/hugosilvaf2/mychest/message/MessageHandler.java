@@ -19,6 +19,7 @@ public enum MessageHandler {
     OPENING_CHEST("opening_chest"),
     NOT_FOUND_CHEST("not_found_chest"),
     TITLE_CHANGED_SUCCESSFULLY("title_changed_successfully"),
+    NAME_CHANGED_SUCCESSFULLY("name_changed_successfully"),
     NOT_PERMISSION("not_permission");
 
     private String path;

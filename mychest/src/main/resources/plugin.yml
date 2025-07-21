@@ -2,3 +2,31 @@ name: mychest
 version: "1.0"
 author: Hugo Silva
 main: com.github.hugosilvaf2.mychest.Main
+commands:
+  bau:
+    description: Open or create a chest
+    usage: /<command> <chest_name>
+    aliases: [b, chest, c]
+  baus:
+    description: List all your chests or of a specific player
+    usage: /<command> [player]
+    aliases: [bs, chests, cs]
+  bauadmin:
+    description: Open any chest of any player (admin only)
+    usage: /<command> <chest_id>
+    aliases: [ba, chestadmin, ca]
+  baunome:
+    description: Change the name of your chest
+    usage: /<command> <current_name> <new_name>
+    aliases: [bnome, bn, chestname, cname, cn]
+  bautitulo:
+    description: Change the title of your chest
+    usage: /<command> <chest_name> <new_title>
+    aliases: [btitulo, bt, chesttitle, ctitle, ct]
+permissions:
+  mychest.use:
+    description: Allows use of basic chest commands
+    default: true
+  mychest.admin:
+    description: Allows use of admin commands
+    default: op

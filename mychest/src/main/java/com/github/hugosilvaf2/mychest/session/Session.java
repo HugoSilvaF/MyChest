@@ -13,11 +13,11 @@ public class Session {
 
     private Chest chest;
     private Inventory inventory;
-    private List<Player> viewrs;
+    private List<Player> viewers;
 
     public Session(Chest chest) {
         this.chest = chest;
-        this.viewrs = new ArrayList<>();
+        this.viewers = new ArrayList<>();
         this.inventory = Bukkit.createInventory(null, chest.getChestSize().getSize(), chest.getTitle());
         chest.getItems().forEach((k, v) -> {
             inventory.setItem(k, v);
@@ -38,7 +38,7 @@ public class Session {
     }
 
     public Session updateInventoryOfViewersExcept(Player player) {
-        this.viewrs.forEach(a -> {
+        this.viewers.forEach(a -> {
             if(player != null) {
                 if(!player.getUniqueId().toString().equals(a.getUniqueId().toString())) {
                     a.updateInventory();
@@ -51,17 +51,17 @@ public class Session {
     }
 
     public Session addViewer(Player player) {
-        this.viewrs.add(player);
+        this.viewers.add(player);
         return this;
     }
 
     public Session removeViewer(Player player) {
-        this.viewrs.remove(player);
+        this.viewers.remove(player);
         return this;
     }
 
     public List<Player> getViewers() {
-        return viewrs;
+        return viewers;
     }
     
 }
