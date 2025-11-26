@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import com.github.hugosilvaf2.mychest.Main;
 import com.github.hugosilvaf2.mychest.controller.ChestController;
 import com.github.hugosilvaf2.mychest.controller.UserController;
 import com.github.hugosilvaf2.mychest.entity.User;
@@ -63,9 +64,13 @@ public class ChestEditCommand extends BaseCommand {
                         String oldName = chest.getName();
                         String oldTitle = chest.getTitle();
                         if (property == 0) {
-                            chestController.getChestservice().updateChest(chest.setName(newValue));
+                            // Validate name length
+                            int maxNameLength = Main.getDefaultConfig().getInt("max_chest_name_length", 32);
+                            String validatedName = newValue.length() > maxNameLength ? newValue.substring(0, maxNameLength) : newValue;
+                            
+                            chestController.getChestservice().updateChest(chest.setName(validatedName));
                             MessageHandler.NAME_CHANGED_SUCCESSFULLY.send(player,
-                                    new Replaces().add("oldname", oldName).add("newname", newValue));
+                                    new Replaces().add("oldname", oldName).add("newname", validatedName));
                             return true;
                         }
                         if (property == 1) {

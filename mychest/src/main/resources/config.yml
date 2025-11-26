@@ -9,6 +9,12 @@ mysql:
 # Save the chest on MYSQL every click on the chest
 # This make more security and more lag maybe
 save_chest_every_click: false
+# Maximum length for chest names
+max_chest_name_length: 32
+# Maximum length for chest titles
+max_chest_title_length: 32
+# Enable debug messages in console
+debug_mode: false
 commands_alias:
   # this command open the chest and can create a new chest if dont exists one
   chest: [bau, b, chest, c]
@@ -20,6 +26,16 @@ commands_alias:
   chestname: [baunome, bnome, bn, chestname, cname, cn]
   # this command can change title of player chest
   chesttitle: [bautitulo, btitulo, bt, chesttitle, ctitle, ct]
+  # this command deletes a player chest
+  chestdelete: [baudeletar, bd, chestdelete, cdelete, cd]
+  # this command shows chest info
+  chestinfo: [bauinfo, bi, chestinfo, cinfo, ci]
+  # this command lists all chests (admin)
+  chestlist: [baulista, bl, chestlist, clist, cl]
+  # this command reloads the plugin configuration
+  chestreload: [baureload, br, chestreload, creload, cr]
+  # this command shows help
+  chesthelp: [bauhelp, bauajuda, bh, chesthelp, chelp, ch]
 permissions:
   # The player have mychest.vip permission, he can have 10 chests
   # The size of inventorys is in the parentheses

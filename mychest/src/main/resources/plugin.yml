@@ -23,10 +23,39 @@ commands:
     description: Change the title of your chest
     usage: /<command> <chest_name> <new_title>
     aliases: [btitulo, bt, chesttitle, ctitle, ct]
+  baudeletar:
+    description: Delete one of your chests
+    usage: /<command> <chest_name>
+    aliases: [bd, chestdelete, cdelete, cd]
+  bauinfo:
+    description: Show detailed information about a chest
+    usage: /<command> <chest_name>
+    aliases: [bi, chestinfo, cinfo, ci]
+  baulista:
+    description: List all chests in the database (admin only)
+    usage: /<command> [page]
+    aliases: [bl, chestlist, clist, cl]
+  baureload:
+    description: Reload the plugin configuration
+    usage: /<command>
+    aliases: [br, chestreload, creload, cr]
+  bauhelp:
+    description: Show all available MyChest commands
+    usage: /<command>
+    aliases: [bauajuda, bh, chesthelp, chelp, ch]
 permissions:
   mychest.use:
     description: Allows use of basic chest commands
     default: true
   mychest.admin:
-    description: Allows use of admin commands
+    description: Allows use of admin commands (chestadmin, chestlist, chestreload)
     default: op
+  mychest.delete:
+    description: Allows deleting own chests
+    default: true
+  mychest.default:
+    description: Default group permission for chest limits
+    default: true
+  mychest.vip:
+    description: VIP group permission for chest limits
+    default: false

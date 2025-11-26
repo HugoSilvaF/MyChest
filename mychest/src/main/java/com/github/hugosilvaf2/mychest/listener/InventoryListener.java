@@ -9,6 +9,7 @@ import com.github.hugosilvaf2.mychest.entity.chest.Chest;
 import com.github.hugosilvaf2.mychest.service.SessionService;
 import com.github.hugosilvaf2.mychest.session.Session;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
