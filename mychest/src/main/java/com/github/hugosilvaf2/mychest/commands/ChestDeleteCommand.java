@@ -35,7 +35,7 @@ public class ChestDeleteCommand extends BaseCommand {
 
     @Default
     public void onDeleteChest(Player player, String name) {
-        if (!player.hasPermission("mychest.use")) {
+        if (!player.hasPermission("mychest.delete")) {
             MessageHandler.NOT_PERMISSION.send(player);
             return;
         }

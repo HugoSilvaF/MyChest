@@ -76,9 +76,14 @@ public class ChestEditCommand extends BaseCommand {
                         if (property == 1) {
                             // FECHAR TODOS INVENTÁRIOS, CRIAR UM COM O NOVO TITULO E ABRIR-LOS NOVAMENTE
                             // PARA OS JOGADORES
-                            chestController.getChestservice().updateChest(chest.setTitle(Utils.fixTitle(newValue)));
+                            // Validate title length
+                            int maxTitleLength = Main.getDefaultConfig().getInt("max_chest_title_length", 32);
+                            String validatedTitle = newValue.length() > maxTitleLength ? newValue.substring(0, maxTitleLength) : newValue;
+                            String fixedTitle = Utils.fixTitle(validatedTitle);
+                            
+                            chestController.getChestservice().updateChest(chest.setTitle(fixedTitle));
                             MessageHandler.TITLE_CHANGED_SUCCESSFULLY.send(player,
-                                    new Replaces().add("oldtitle", oldTitle).add("newtitle", Utils.fixTitle(newValue)));
+                                    new Replaces().add("oldtitle", oldTitle).add("newtitle", fixedTitle));
                             Optional<Session> optionalS = sessionService.getSessionByID(chest.getID());
                             if (optionalS.isPresent()) {
                                 List<Player> viewers = new ArrayList<>(optionalS.get().getViewers());
