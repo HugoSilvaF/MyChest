@@ -58,13 +58,20 @@ public class ChestCommand extends BaseCommand {
         // tirar essa parte daqui
         if (perms.has(player, permission + a.getGroupName())) {
           if (user.getChestsID().size() < a.getChestsLimit()) {
-            Chest chest = new Chest(0, chestname, chestname, a.getChestSize());
+            // Validate chest name length
+            int maxNameLength = Main.getDefaultConfig().getInt("max_chest_name_length", 32);
+            String validatedName = chestname.length() > maxNameLength ? chestname.substring(0, maxNameLength) : chestname;
+            
+            Chest chest = new Chest(0, validatedName, validatedName, a.getChestSize());
 
             save(chest, user);
             chestController.openChestToPlayer(player, String.valueOf(chest.getID()));
             
             MessageHandler.OPENING_CHEST.send(player, new Replaces().add("name", chest.getName()).add("id",
                 String.valueOf(chest.getID())));
+            return true;
+          } else {
+            MessageHandler.CHEST_LIMIT_REACHED.send(player);
             return true;
           }
         }

@@ -1,5 +1,5 @@
 you_dont_have_any_chest:
-- '&CVoce nao tem nenhum bau!'
+- '&cVoce nao tem nenhum bau!'
 # $target the playername of target
 user_dont_have_any_chest:
 - '&cEste usuario nao tem nenhum bau'
@@ -28,8 +28,71 @@ your_chests_info:
 opening_chest:
 - '&7Abrindo o bau $id $name'
 not_found_chest:
-- '&cBau nao encontrado'
+- '&cBau "$name" nao encontrado'
 title_changed_successfully:
 - '&bTitulo alterado com sucesso de &7$oldtitle&b para &7$newtitle'
+name_changed_successfully:
+- '&bNome alterado com sucesso de &7$oldname&b para &7$newname'
 not_permission:
 - '&cVocê nao tem permissao para usar este comando'
+# New messages for additional features
+chest_deleted_successfully:
+- '&aBau "&7$name&a" (ID: $id) foi deletado com sucesso!'
+config_reloaded:
+- '&aConfiguracao recarregada com sucesso!'
+config_reload_failed:
+- '&cFalha ao recarregar a configuracao!'
+chest_info:
+- ''
+- '&b&l=== Informacoes do Bau ==='
+- '&7ID: &f$id'
+- '&7Nome: &f$name'
+- '&7Titulo: &f$title'
+- '&7Tamanho: &f$size &7($slots slots)'
+- '&7Slots usados: &f$used/$slots'
+- ''
+no_chests_in_database:
+- '&cNenhum bau encontrado no banco de dados.'
+chest_list_header:
+- ''
+- '&b&l=== Lista de Baus (Pagina $page/$total) ==='
+- '&7Total de baus: &f$count'
+- '&bID &7| &bNome &7| &bTitulo &7| &bTamanho'
+- ''
+chest_list_item:
+- '&f$id &7| &f$name &7| &f$title &7| &f$size'
+chest_list_footer:
+- ''
+- '&7Use &b/chestlist $nextpage &7para a proxima pagina'
+help_header:
+- ''
+- '&b&l=== MyChest - Comandos ==='
+- ''
+help_chest:
+- '&b/bau <nome> &7- Abre ou cria um bau'
+help_chests:
+- '&b/baus [jogador] &7- Lista seus baus ou de outro jogador'
+help_chestname:
+- '&b/baunome <nome_atual> <novo_nome> &7- Altera o nome do bau'
+help_chesttitle:
+- '&b/bautitulo <nome> <novo_titulo> &7- Altera o titulo do bau'
+help_chestinfo:
+- '&b/bauinfo <nome> &7- Mostra informacoes do bau'
+help_chestdelete:
+- '&b/baudeletar <nome> &7- Deleta um bau'
+help_admin_header:
+- ''
+- '&c&l=== Comandos de Admin ==='
+- ''
+help_chestadmin:
+- '&c/bauadmin <id> &7- Abre qualquer bau pelo ID'
+help_chestlist:
+- '&c/baulista [pagina] &7- Lista todos os baus do servidor'
+help_chestreload:
+- '&c/baureload &7- Recarrega a configuracao'
+help_footer:
+- ''
+- '&7Plugin MyChest v1.0 por Hugo Silva'
+- ''
+chest_limit_reached:
+- '&cVoce atingiu o limite de baus para o seu grupo!'

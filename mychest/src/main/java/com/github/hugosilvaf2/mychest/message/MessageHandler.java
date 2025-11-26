@@ -19,7 +19,29 @@ public enum MessageHandler {
     OPENING_CHEST("opening_chest"),
     NOT_FOUND_CHEST("not_found_chest"),
     TITLE_CHANGED_SUCCESSFULLY("title_changed_successfully"),
-    NOT_PERMISSION("not_permission");
+    NAME_CHANGED_SUCCESSFULLY("name_changed_successfully"),
+    NOT_PERMISSION("not_permission"),
+    CHEST_DELETED_SUCCESSFULLY("chest_deleted_successfully"),
+    CONFIG_RELOADED("config_reloaded"),
+    CONFIG_RELOAD_FAILED("config_reload_failed"),
+    CHEST_INFO("chest_info"),
+    NO_CHESTS_IN_DATABASE("no_chests_in_database"),
+    CHEST_LIST_HEADER("chest_list_header"),
+    CHEST_LIST_ITEM("chest_list_item"),
+    CHEST_LIST_FOOTER("chest_list_footer"),
+    HELP_HEADER("help_header"),
+    HELP_CHEST("help_chest"),
+    HELP_CHESTS("help_chests"),
+    HELP_CHESTNAME("help_chestname"),
+    HELP_CHESTTITLE("help_chesttitle"),
+    HELP_CHESTINFO("help_chestinfo"),
+    HELP_CHESTDELETE("help_chestdelete"),
+    HELP_ADMIN_HEADER("help_admin_header"),
+    HELP_CHESTADMIN("help_chestadmin"),
+    HELP_CHESTLIST("help_chestlist"),
+    HELP_CHESTRELOAD("help_chestreload"),
+    HELP_FOOTER("help_footer"),
+    CHEST_LIMIT_REACHED("chest_limit_reached");
 
     private String path;
 

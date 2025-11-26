@@ -6,7 +6,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import com.github.hugosilvaf2.mychest.commands.ChestAdminCommand;
+import com.github.hugosilvaf2.mychest.commands.ChestCommand;
+import com.github.hugosilvaf2.mychest.commands.ChestDeleteCommand;
 import com.github.hugosilvaf2.mychest.commands.ChestEditCommand;
+import com.github.hugosilvaf2.mychest.commands.ChestHelpCommand;
+import com.github.hugosilvaf2.mychest.commands.ChestInfoCommand;
+import com.github.hugosilvaf2.mychest.commands.ChestListCommand;
+import com.github.hugosilvaf2.mychest.commands.ChestReloadCommand;
 import com.github.hugosilvaf2.mychest.commands.ChestsCommand;
 import com.github.hugosilvaf2.mychest.controller.ChestController;
 import com.github.hugosilvaf2.mychest.controller.UserController;
@@ -32,6 +38,7 @@ public class Main extends JavaPlugin {
 
    }
 
+   private static Main instance;
    private static MySQL mysql;
 
    private BukkitCommandManager commandManager;
@@ -61,6 +68,7 @@ public class Main extends JavaPlugin {
    @Override
    public void onEnable() {
       // registras as denependias dos comandos chestcontroller e usercontroller
+      instance = this;
       saveDefaultConfig();
       this.getLogger().info("Starting mysql...");
       this.initMySQL();
@@ -96,7 +104,12 @@ public class Main extends JavaPlugin {
       this.commandManager.registerCommand(new ChestsCommand());
       this.commandManager.registerCommand(new ChestAdminCommand());
       this.commandManager.registerCommand(new ChestEditCommand());
-      this.commandManager.registerCommand(new ChestsCommand());
+      this.commandManager.registerCommand(new ChestCommand());
+      this.commandManager.registerCommand(new ChestDeleteCommand());
+      this.commandManager.registerCommand(new ChestInfoCommand());
+      this.commandManager.registerCommand(new ChestListCommand());
+      this.commandManager.registerCommand(new ChestReloadCommand());
+      this.commandManager.registerCommand(new ChestHelpCommand());
       getLogger().info("Command registered succesfully");
 
       initMessageConfig();
@@ -155,6 +168,11 @@ public class Main extends JavaPlugin {
       commandManager.getCommandReplacements().addReplacement("chestname", Utils.parseAlias(getDefaultConfig().getString("commands_alias.chestname")));
       commandManager.getCommandReplacements().addReplacement("chestadmin", Utils.parseAlias(getDefaultConfig().getString("commands_alias.chestadmin")));
       commandManager.getCommandReplacements().addReplacement("chesttitle", Utils.parseAlias(getDefaultConfig().getString("commands_alias.chesttitle")));
+      commandManager.getCommandReplacements().addReplacement("chestdelete", Utils.parseAlias(getDefaultConfig().getString("commands_alias.chestdelete")));
+      commandManager.getCommandReplacements().addReplacement("chestinfo", Utils.parseAlias(getDefaultConfig().getString("commands_alias.chestinfo")));
+      commandManager.getCommandReplacements().addReplacement("chestlist", Utils.parseAlias(getDefaultConfig().getString("commands_alias.chestlist")));
+      commandManager.getCommandReplacements().addReplacement("chestreload", Utils.parseAlias(getDefaultConfig().getString("commands_alias.chestreload")));
+      commandManager.getCommandReplacements().addReplacement("chesthelp", Utils.parseAlias(getDefaultConfig().getString("commands_alias.chesthelp")));
    }
 
    private void loadMysqlConnectionCredentials() {
@@ -235,6 +253,31 @@ public class Main extends JavaPlugin {
 
    public static ChestController getChestController() {
       return chestController;
+   }
+
+   public static Main getInstance() {
+      return instance;
+   }
+
+   public void reloadConfiguration() {
+      reloadConfig();
+      defaultConfig = getConfig();
+      
+      // Reload messages.yml
+      messageConfigFile = new File(getDataFolder(), "messages.yml");
+      if (messageConfigFile.exists()) {
+         messageConfig = new YamlConfiguration();
+         try {
+            messageConfig.load(messageConfigFile);
+            getLogger().info("Messages.yml reloaded successfully");
+         } catch (Exception e) {
+            getLogger().warning("Failed to reload messages.yml: " + e.getMessage());
+         }
+      }
+      
+      // Reload groups
+      loadGroups();
+      getLogger().info("Configuration reloaded successfully");
    }
 
 }

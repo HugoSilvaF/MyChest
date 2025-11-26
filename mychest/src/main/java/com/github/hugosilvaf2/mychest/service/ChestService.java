@@ -1,6 +1,7 @@
 package com.github.hugosilvaf2.mychest.service;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 
 import com.github.hugosilvaf2.mychest.dao.impl.ChestDao;
@@ -41,5 +42,9 @@ public class ChestService {
     public ChestService deleteChest(Chest chest) {
         chestDao.delete(chest);
         return this;
+    }
+
+    public List<Chest> getAllChests() {
+        return chestDao.findAll();
     }
 }

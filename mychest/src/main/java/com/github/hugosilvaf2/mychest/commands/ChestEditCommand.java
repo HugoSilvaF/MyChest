@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import com.github.hugosilvaf2.mychest.Main;
 import com.github.hugosilvaf2.mychest.controller.ChestController;
 import com.github.hugosilvaf2.mychest.controller.UserController;
 import com.github.hugosilvaf2.mychest.entity.User;
@@ -47,6 +48,11 @@ public class ChestEditCommand extends BaseCommand {
     }
 
     private void setChestProperty(int property, Player player, String name, String newValue) {
+        if (!player.hasPermission("mychest.use")) {
+            MessageHandler.NOT_PERMISSION.send(player);
+            return;
+        }
+        
         Optional<User> optional = userController.getUserService().getUserByID(player.getUniqueId().toString());
         if (optional.isPresent()) {
             User user = optional.get();
@@ -58,17 +64,26 @@ public class ChestEditCommand extends BaseCommand {
                         String oldName = chest.getName();
                         String oldTitle = chest.getTitle();
                         if (property == 0) {
-                            chestController.getChestservice().updateChest(chest.setName(newValue));
-                            MessageHandler.TITLE_CHANGED_SUCCESSFULLY.send(player,
-                                    new Replaces().add("oldname", oldName).add("newname", newValue));
-                                    return true;
+                            // Validate name length
+                            int maxNameLength = Main.getDefaultConfig().getInt("max_chest_name_length", 32);
+                            String validatedName = newValue.length() > maxNameLength ? newValue.substring(0, maxNameLength) : newValue;
+                            
+                            chestController.getChestservice().updateChest(chest.setName(validatedName));
+                            MessageHandler.NAME_CHANGED_SUCCESSFULLY.send(player,
+                                    new Replaces().add("oldname", oldName).add("newname", validatedName));
+                            return true;
                         }
                         if (property == 1) {
                             // FECHAR TODOS INVENTÁRIOS, CRIAR UM COM O NOVO TITULO E ABRIR-LOS NOVAMENTE
                             // PARA OS JOGADORES
-                            chestController.getChestservice().updateChest(chest.setTitle(Utils.fixTitle(newValue)));
+                            // Validate title length
+                            int maxTitleLength = Main.getDefaultConfig().getInt("max_chest_title_length", 32);
+                            String validatedTitle = newValue.length() > maxTitleLength ? newValue.substring(0, maxTitleLength) : newValue;
+                            String fixedTitle = Utils.fixTitle(validatedTitle);
+                            
+                            chestController.getChestservice().updateChest(chest.setTitle(fixedTitle));
                             MessageHandler.TITLE_CHANGED_SUCCESSFULLY.send(player,
-                                    new Replaces().add("oldtitle", oldTitle).add("newtitle", Utils.fixTitle(newValue)));
+                                    new Replaces().add("oldtitle", oldTitle).add("newtitle", fixedTitle));
                             Optional<Session> optionalS = sessionService.getSessionByID(chest.getID());
                             if (optionalS.isPresent()) {
                                 List<Player> viewers = new ArrayList<>(optionalS.get().getViewers());
@@ -97,7 +112,7 @@ public class ChestEditCommand extends BaseCommand {
                 }
                 return false;
             }).findFirst().isPresent()) {
-                MessageHandler.NOT_FOUND_CHEST.send(player, new Replaces().add("oldtitle", name));
+                MessageHandler.NOT_FOUND_CHEST.send(player, new Replaces().add("name", name));
             }
         }
     }
