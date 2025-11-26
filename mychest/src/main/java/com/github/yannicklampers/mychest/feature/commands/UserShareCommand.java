@@ -153,13 +153,9 @@ public class UserShareCommand implements CommandExecutor {
         if (targetPlayer != null) {
             targetId = targetPlayer.getUniqueId();
         } else {
+            // Get offline player UUID (generates a random UUID if player never joined)
             @SuppressWarnings("deprecation")
-            UUID offlineId = Bukkit.getOfflinePlayer(targetName).getUniqueId();
-            if (offlineId == null) {
-                player.sendMessage(ChatColor.RED + "Player not found: " + targetName);
-                return true;
-            }
-            targetId = offlineId;
+            targetId = Bukkit.getOfflinePlayer(targetName).getUniqueId();
         }
 
         shareService.revokeShare(chestId, targetId);

@@ -138,12 +138,25 @@ public class DatabaseManager {
 
     /**
      * Execute a schema string containing multiple SQL statements separated by semicolons.
+     * 
+     * <p><strong>Note:</strong> This method splits statements by semicolons, which is a simple
+     * approach that works for standard CREATE TABLE statements. For complex schemas with
+     * stored procedures or strings containing semicolons, consider running the schema manually.</p>
      *
      * @param schema the SQL schema string
      * @throws SQLException if execution fails
      */
     private void executeSchema(String schema) throws SQLException {
-        String[] statements = schema.split(";");
+        // Remove SQL comments (lines starting with --)
+        StringBuilder cleanedSchema = new StringBuilder();
+        for (String line : schema.split("\n")) {
+            String trimmedLine = line.trim();
+            if (!trimmedLine.startsWith("--") && !trimmedLine.isEmpty()) {
+                cleanedSchema.append(line).append("\n");
+            }
+        }
+        
+        String[] statements = cleanedSchema.toString().split(";");
 
         try (Connection conn = getConnection();
              Statement stmt = conn.createStatement()) {

@@ -60,14 +60,9 @@ public class AdminSetLimitCommand implements CommandExecutor {
         if (targetPlayer != null) {
             targetId = targetPlayer.getUniqueId();
         } else {
-            // Try to get offline player UUID
+            // Get offline player UUID (generates a random UUID if player never joined)
             @SuppressWarnings("deprecation")
-            UUID offlineId = Bukkit.getOfflinePlayer(playerName).getUniqueId();
-            if (offlineId == null) {
-                sender.sendMessage(ChatColor.RED + "Player not found: " + playerName);
-                return true;
-            }
-            targetId = offlineId;
+            targetId = Bukkit.getOfflinePlayer(playerName).getUniqueId();
         }
 
         // Get admin UUID (console uses null UUID)

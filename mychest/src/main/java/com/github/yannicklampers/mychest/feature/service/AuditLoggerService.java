@@ -58,8 +58,30 @@ public class AuditLoggerService {
      * @param details  additional details
      */
     public void log(UUID playerId, String action, String details) {
-        auditDao.logAction(playerId, action, details);
-        logger.info("[Audit] Player " + playerId + " performed " + action + ": " + details);
+        // Sanitize details to prevent log injection
+        String sanitizedDetails = sanitizeLogInput(details);
+        auditDao.logAction(playerId, action, sanitizedDetails);
+        logger.info("[Audit] Player " + playerId + " performed " + action + ": " + sanitizedDetails);
+    }
+    
+    /**
+     * Sanitize input to prevent log injection attacks.
+     * Removes newlines and carriage returns, and limits length.
+     *
+     * @param input the input string
+     * @return sanitized string
+     */
+    private String sanitizeLogInput(String input) {
+        if (input == null) {
+            return "";
+        }
+        // Remove newlines and carriage returns to prevent log forging
+        String sanitized = input.replace("\n", " ").replace("\r", " ");
+        // Limit length to prevent excessively long log entries
+        if (sanitized.length() > 500) {
+            sanitized = sanitized.substring(0, 500) + "...";
+        }
+        return sanitized;
     }
 
     /**
